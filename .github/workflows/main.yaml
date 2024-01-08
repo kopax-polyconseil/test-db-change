@@ -14,9 +14,12 @@ permissions: write-all
 
 jobs:
   ping-data-team-on-slack:
-    runs-on: ubuntu-latest
     name: "Ping data team on slack"
+<<<<<<< Updated upstream
     steps:
       - run: echo hello world
       - run: echo ${{github.event.number}}
       - run: echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }'
+=======
+    uses: ./.github/workflows/dev_on_workflow_ping_data_team.yml
+>>>>>>> Stashed changes

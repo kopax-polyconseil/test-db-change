@@ -1,0 +1,41 @@
+name: "Ping data team on slack"
+# This action pings slack for every new PR that adds, changes or removes a db migration.
+# The ping is done on every push.
+
+on:
+  workflow_call:
+    secrets:
+      GCP_EHP_WORKLOAD_IDENTITY_PROVIDER:
+        required: true
+      GCP_EHP_SERVICE_ACCOUNT:
+        required: true
+
+jobs:
+  slack-notification:
+    name: 'Send slack notification'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.1
+      - run: echo hello world
+      - run: echo ${{github.event.number}}
+      - run: echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }'
+      - run: echo ${{ github.ref }}
+      - run: jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH"
+      - name: Get PR Number
+        id: pr_number
+        run: echo "::set-output name=number::${{ github.event.pull_request.number }}"
+
+      - name: Get Branch Merged From
+        id: branch_merged_from
+        run: |
+          PR_NUMBER="${{ steps.pr_number.outputs.number }}"
+          API_URL="https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}"
+          BRANCH_MERGED_FROM=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" "$API_URL" | jq -r '.head.ref')
+          echo "::set-output name=branch_merged_from::${BRANCH_MERGED_FROM}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Display Information
+        run: |
+          echo "Merged SHA: ${{ github.sha }}"
+          echo "Merged From Branch: ${{ steps.branch_merged_from.outputs.branch_merged_from }}"
