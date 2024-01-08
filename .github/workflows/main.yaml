@@ -13,6 +13,7 @@ permissions: write-all
 
 jobs:
   ping-data-team-on-slack:
+    runs-on: ubuntu-latest
     name: "Ping data team on slack"
     steps:
       - run: echo hello world
