@@ -20,3 +20,5 @@ jobs:
       - run: echo hello world
       - run: echo ${{github.event.number}}
       - run: echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }'
+      - run: echo ${{ github.ref }}
+      - run: jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH"
