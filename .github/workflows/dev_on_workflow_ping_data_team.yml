@@ -34,3 +34,7 @@ jobs:
         run: |
           echo "Merged SHA: ${{ github.sha }}"
           echo "Merged From Branch: ${{ steps.branch_merged_from.outputs.branch_merged_from }}"
+      - uses: kceb/pull-request-url-action@v1
+        id: pr-url
+
+      - run: echo "${{ steps.pr-url.outputs.url }}"
