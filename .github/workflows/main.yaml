@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - main
       - "maint/**"
   pull_request:
     branches-ignore:
