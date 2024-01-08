@@ -1,0 +1,20 @@
+name: "Initiate workflow"
+
+on:
+  push:
+    branches:
+      - master
+      - "maint/**"
+  pull_request:
+    branches-ignore:
+      - docs
+
+permissions: write-all
+
+jobs:
+  ping-data-team-on-slack:
+    name: "Ping data team on slack"
+    steps:
+      - run: echo hello world
+      - run: echo ${{github.event.number}}
+      - run: echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }'
