@@ -4,11 +4,6 @@ name: "Ping data team on slack"
 
 on:
   workflow_call:
-    secrets:
-      GCP_EHP_WORKLOAD_IDENTITY_PROVIDER:
-        required: true
-      GCP_EHP_SERVICE_ACCOUNT:
-        required: true
 
 jobs:
   slack-notification:
