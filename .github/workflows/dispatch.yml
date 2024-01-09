@@ -1,0 +1,24 @@
+name: "Dispatch test"
+# This action pings slack for every new PR that adds, changes or removes a db migration.
+# The ping is done on every push.
+
+on:
+  workflow_dispatch:
+    inputs:
+      commitHash:
+        description: "Hash du commit à déployer (ex: cadd172232c80206107e2f0122542adf19fb42af)"
+        required: true
+        type: string
+      releaseNumber:
+        description: "Numéro de l'itération (ex: 199)"
+        required: true
+        type: string
+
+
+jobs:
+  show-inputs:
+    name: 'Show inputs'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.1
+      - uses: pass-culture-github-actions/setup@main
