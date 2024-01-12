@@ -14,3 +14,4 @@ jobs:
       - run: echo "${{ steps.pr.outputs.number }}"
       - run: echo "${{ steps.pr.outputs.url }}"
       - run: echo "${{ steps.pr.outputs.title }}"
+      - run: echo "fin"
