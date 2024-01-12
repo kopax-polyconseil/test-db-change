@@ -17,5 +17,5 @@ jobs:
       - run: |
           curl -s \
             -H "Accept: application/vnd.github.groot-preview+json" \
-            -H "Authorization: token ${token}" \
-            https://api.github.com/repos/${{ env.GITHUB_REPOSITORY }}/commits/${{ env.GITHUB_SHA }}/pulls | jq -r '.[]'
+            -H "Authorization: token ${GH_TOKEN}" \
+            https://api.github.com/repos/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}/pulls | jq -r '.[]'
