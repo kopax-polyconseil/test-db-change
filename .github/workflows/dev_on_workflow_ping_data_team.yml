@@ -11,11 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.1
-      - uses: kceb/pull-request-url-action@v1
-        id: pr-url
-      - run: echo "${{ steps.pr-url.outputs.url }}"
-      - run: |
-          curl -s \
-            -H "Accept: application/vnd.github.groot-preview+json" \
-            -H "Authorization: token ${token}" \
-            https://api.github.com/repos/${{ env.GITHUB_REPOSITORY }}/commits/${{ env.GITHUB_SHA }}/pulls | jq -r '.[]'
+      - uses: pass-culture-github-actions/pull-request@main
+        id: pr
+      - run: echo "${{ steps.pr.outputs.number }}"
+      - run: echo "${{ steps.pr.outputs.url }}"
+      - run: echo "${{ steps.pr.outputs.title }}"
